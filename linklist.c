@@ -22,8 +22,11 @@ Node* create_node(void* data){
 int add_to_list(LinkedList* list,Node* s) {
 	if(list->head==0){
 		list->head = s;
+		list->tail = s;
 	}
-	list->tail = s;
+	else
+		list->tail->next = s;
+		list->tail = s;
 	list->count++;
 }
 
