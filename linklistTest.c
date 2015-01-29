@@ -304,7 +304,7 @@ void test_get_first_element_010() {
 }
 
 void test_get_last_element_001() {
-	log("gives the first element of the link list if there is only one element");
+	log("gives the last element of the link list if there is only one element");
 	int c = 9,*res;
 	LinkedList list = createList();
 	Node *intNode = create_node(&c);
@@ -312,6 +312,16 @@ void test_get_last_element_001() {
 	res = get_last_element(list);
 	assertEqual(*res, 9);
 }
+
+// void test_get_last_element_002() {
+// 	log("gives the first element of the link list if there is only one element");
+// 	int c = 9,*res;
+// 	LinkedList list = createList();
+// 	Node *intNode = create_node(&c);
+// 	add_to_list(&list,intNode);
+// 	res = get_last_element(list);
+// 	assertEqual(*res, 9);
+// }
 
 void add(void* data) {
 	*(int*)data += 1;
