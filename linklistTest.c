@@ -119,6 +119,90 @@ void test_add_to_list_004() {
 	assertEqual(*(char *)(*(list.tail)).data,'B');
 }
 
+void test_add_to_list_005() {
+	log("adds a string data element to the empty linklist for strings");
+	string c = "Prasenjit";
+	LinkedList list = createList();
+	Node *charNode = create_node(&c);
+	add_to_list(&list,charNode);
+	assertEqual(*(string *)(*(list.head)).data,"Prasenjit");
+	assertEqual(*(string *)(*(list.tail)).data,"Prasenjit");
+}
+
+void test_add_to_list_006() {
+	log("adds a string data element to the existing linklist for string");
+	string c = "Prasenjit",d = "Chakraborty";
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(*(string *)(*(list.head)).data,"Prasenjit");
+	// assertEqual(*(string *)(*(list.tail)).data,"Chakraborty"); Checkpoint
+}
+
+void test_add_to_list_007() {
+	log("adds a float data element to the empty linklist for floats");
+	float c = 72.3;
+	LinkedList list = createList();
+	Node *charNode = create_node(&c);
+	add_to_list(&list,charNode);
+	assertEqual(*(float *)(*(list.head)).data,72.3);
+	assertEqual(*(float *)(*(list.tail)).data,72.3);
+}
+
+void test_add_to_list_008() {
+	log("adds a float data element to the existing float linklist");
+	float c = 72.3,d = 65.3;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(*(float *)(*(list.head)).data,72.3);
+	assertEqual(*(float *)(*(list.tail)).data,65.3);
+}
+
+void test_add_to_list_009() {
+	log("adds a long int data element to the empty linklist for long ints");
+	long int c = 2147483647;
+	LinkedList list = createList();
+	Node *charNode = create_node(&c);
+	add_to_list(&list,charNode);
+	assertEqual(*(long int *)(*(list.head)).data,2147483647);
+	assertEqual(*(long int *)(*(list.tail)).data,2147483647);
+}
+
+void test_add_to_list_010() {
+	log("adds a long int data element to the existing long int linklist");
+	long int c = 2147483647,d = 2147483646;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(*(long int *)(*(list.head)).data,2147483647);
+	assertEqual(*(long int *)(*(list.tail)).data,2147483646);
+}
+
+void test_add_to_list_0011() {
+	log("adds a double data element to the empty linklist for doubles");
+	double c = 21.1;
+	LinkedList list = createList();
+	Node *charNode = create_node(&c);
+	add_to_list(&list,charNode);
+	assertEqual(*(double *)(*(list.head)).data,21.1);
+	assertEqual(*(double *)(*(list.tail)).data,21.1);
+}
+
+void test_add_to_list_012() {
+	log("adds a double data element to the existing double linklist");
+	double c = 21.1,d = 21.2;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(*(double *)(*(list.head)).data,21.1);
+	assertEqual(*(double *)(*(list.tail)).data,21.2);
+}
+
 void test_get_first_element_001() {
 	log("gives the first element of the link list");
 	int c = 9,*res;
