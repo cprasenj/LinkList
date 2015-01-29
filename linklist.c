@@ -20,6 +20,7 @@ Node* create_node(void* data){
 }
 
 int add_to_list(LinkedList* list,Node* s) {
+	if(s==0)return 0;
 	if(list->head==0){
 		list->head = s;
 		list->tail = s;

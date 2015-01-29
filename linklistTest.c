@@ -204,13 +204,103 @@ void test_add_to_list_012() {
 }
 
 void test_get_first_element_001() {
-	log("gives the first element of the link list");
+	log("gives the first element of the link list for integer");
 	int c = 9,*res;
 	LinkedList list = createList();
 	Node *intNode = create_node(&c);
 	add_to_list(&list,intNode);
 	res = get_first_element(list);
 	assertEqual(*res, 9);
+}
+
+void test_get_first_element_002() {
+	log("gives the first element of the link list for float");
+	float c = 9.2,*res;
+	LinkedList list = createList();
+	Node *intNode = create_node(&c);
+	add_to_list(&list,intNode);
+	res = get_first_element(list);
+	assertEqual(*res, 9.2);
+}
+
+void test_get_first_element_003() {
+	log("gives the first element of the link list for char");
+	char c = 'A',*res;
+	LinkedList list = createList();
+	Node *intNode = create_node(&c);
+	add_to_list(&list,intNode);
+	res = get_first_element(list);
+	assertEqual(*res, 'A');
+}
+
+void test_get_first_element_004() {
+	log("gives the first element of the link list for string");
+	string c = "Prasenjit",*res;
+	LinkedList list = createList();
+	Node *intNode = create_node(c);
+	add_to_list(&list,intNode);
+	res = get_first_element(list);
+	assertEqual(res, "Prasenjit");
+}
+
+void test_get_first_element_005() {
+	log("gives the first element of the link list for double");
+	double c = 19.2,*res;
+	LinkedList list = createList();
+	Node *intNode = create_node(&c);
+	add_to_list(&list,intNode);
+	res = get_first_element(list);
+	assertEqual(*res,19.2);
+}
+
+void test_get_first_element_006() {
+	log("gives the first element of the link list for long int");
+	long int c = 2147483647,*res;
+	LinkedList list = createList();
+	Node *intNode = create_node(&c);
+	add_to_list(&list,intNode);
+	res = get_first_element(list);
+	assertEqual(*res,2147483647);
+}
+
+void test_get_first_element_007() {
+	log("gives the first element of the link list for signed char");
+	signed char c = 127,*res;
+	LinkedList list = createList();
+	Node *intNode = create_node(&c);
+	add_to_list(&list,intNode);
+	res = get_first_element(list);
+	assertEqual(*res,127);
+}
+
+void test_get_first_element_008() {
+	log("gives the first element of the link list for unsigned char");
+	unsigned char c = 255,*res;
+	LinkedList list = createList();
+	Node *intNode = create_node(&c);
+	add_to_list(&list,intNode);
+	res = get_first_element(list);
+	assertEqual(*res,255);
+}
+
+void test_get_first_element_009() {
+	log("gives the first element of the link list for unsigned int");
+	unsigned int c =  4294967295,*res;
+	LinkedList list = createList();
+	Node *intNode = create_node(&c);
+	add_to_list(&list,intNode);
+	res = get_first_element(list);
+	assertEqual(*res, 4294967295);
+}
+
+void test_get_first_element_010() {
+	log("gives the first element of the link list for short int");
+	short int c =  32767,*res;
+	LinkedList list = createList();
+	Node *intNode = create_node(&c);
+	add_to_list(&list,intNode);
+	res = get_first_element(list);
+	assertEqual(*res, 32767);
 }
 
 void test_get_last_element_001() {
