@@ -304,7 +304,7 @@ void test_get_first_element_010() {
 }
 
 void test_get_last_element_001() {
-	log("gives the last element of the link list if there is only one element");
+	log("gives the last element of the link list if there is only one element for int linklist");
 	int c = 9,*res;
 	LinkedList list = createList();
 	Node *intNode = create_node(&c);
@@ -313,15 +313,35 @@ void test_get_last_element_001() {
 	assertEqual(*res, 9);
 }
 
-// void test_get_last_element_002() {
-// 	log("gives the first element of the link list if there is only one element");
-// 	int c = 9,*res;
-// 	LinkedList list = createList();
-// 	Node *intNode = create_node(&c);
-// 	add_to_list(&list,intNode);
-// 	res = get_last_element(list);
-// 	assertEqual(*res, 9);
-// }
+void test_get_last_element_002() {
+	log("gives the first element of the link list if there is only one element for float linklist");
+	float c = 9.5,*res;
+	LinkedList list = createList();
+	Node *intNode = create_node(&c);
+	add_to_list(&list,intNode);
+	res = get_last_element(list);
+	assertEqual(*res, 9.5);
+}
+
+void test_get_last_element_003() {
+	log("gives the first element of the link list if there is only one element for char linklist");
+	char c = 'A',*res;
+	LinkedList list = createList();
+	Node *intNode = create_node(&c);
+	add_to_list(&list,intNode);
+	res = get_last_element(list);
+	assertEqual(*res, 'A');
+}
+
+void test_get_last_element_004() {
+	log("gives the first element of the link list if there is only one element for string linklist");
+	string c = "Prasenjit",*res;
+	LinkedList list = createList();
+	Node *intNode = create_node(c);
+	add_to_list(&list,intNode);
+	res = get_last_element(list);
+	assertEqual(res, "Prasenjit");
+}
 
 void add(void* data) {
 	*(int*)data += 1;
@@ -337,9 +357,38 @@ void test_traverse_001() {
 	assertEqual(*(int*)(*(Node*)(list.head)).data, 10);
 }
 
+void test_getElementAt_001() {
+	log("getElementAt gives the data at given position for integer");
+	int c = 9,d = 10;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(*((int*)getElementAt(list,0)),9);
+	assertEqual(*((int*)getElementAt(list,1)),10);
+}
 
+void test_indexOf_001() {
+	log("indexOf gives the position of the given element in an integer link list");
+	int c = 9,d = 10;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(((int *)indexOf(list,&c)),0);
+	assertEqual(((int *)indexOf(list,&d)),1);
+}
 
-
-
-
+void test_deleteElementAt_001() {
+	log("deleteElementAt deletes the element at the given position");
+	int c = 9,d = 10,e = 11;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d),*node3 = create_node(&e);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	add_to_list(&list,node3);
+	assertEqual(((int *)indexOf(list,&e)),2);
+	deleteElementAt(list,1);
+	assertEqual(((int *)indexOf(list,&e)),1);
+}
 

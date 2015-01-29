@@ -45,3 +45,37 @@ void traverse(LinkedList list, void (*f)(void* data)) {
 		f(traverser->data);
 	}
 }
+
+void *getElementAt(LinkedList list, int index) {
+	Node* traverser;
+	int count = 0;
+	if(index > list.count) return NULL;
+	for(traverser = list.head;traverser!=NULL;traverser = traverser->next) {
+		if(count == index)
+			return traverser->data;
+	count++;
+	}	
+}
+
+int indexOf(LinkedList list,void* data) {
+	Node* traverser;
+	int count = 0;
+	for(traverser = list.head;traverser!=NULL;traverser = traverser->next) {
+		if(memcmp(traverser->data,data,sizeof((int*)data))==0)
+			return count;
+		count++;
+	}
+	return -1;
+}
+
+void *deleteElementAt(LinkedList list, int index) {
+	Node* traverser;
+	int count = 0;
+	for(traverser = list.head;traverser!=NULL;traverser = traverser->next) {
+		if(count == index-1) {
+			traverser->next = traverser->next->next;
+			return traverser->next->data;
+		}
+	count++;
+	}	
+}
