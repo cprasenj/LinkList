@@ -6,8 +6,8 @@ LinkedList createList() {
 	LinkedList *list;
 	list = malloc(sizeof(LinkedList));
 	list->count = 0;
-	list->head = 0;
-	list->tail = 0;
+	list->head = NULL;
+	list->tail = NULL;
 	return *list;
 }
 
@@ -15,19 +15,18 @@ Node* create_node(void* data){
 	Node *n; 
 	n = malloc(sizeof(Node));
 	n->data = data;
-	n->next = 0;
+	n->next = NULL;
 	return n;
 }
 
 int add_to_list(LinkedList* list,Node* s) {
-	if(s==0)return 0;
-	if(list->head==0){
+	if(!s)return 0;
+	if(list->head==NULL){
 		list->head = s;
-		list->tail = s;
 	}
 	else
 		list->tail->next = s;
-		list->tail = s;
+	list->tail = s;
 	list->count++;
 }
 
@@ -49,21 +48,19 @@ void traverse(LinkedList list, void (*f)(void* data)) {
 void *getElementAt(LinkedList list, int index) {
 	Node* traverser;
 	int count = 0;
-	if(index > list.count) return NULL;
-	for(traverser = list.head;traverser!=NULL;traverser = traverser->next) {
+	if(index > list.count || index<0) return NULL;
+	for(traverser = list.head;traverser!=NULL;traverser = traverser->next,count++) {
 		if(count == index)
 			return traverser->data;
-	count++;
 	}	
 }
 
 int indexOf(LinkedList list,void* data) {
 	Node* traverser;
 	int count = 0;
-	for(traverser = list.head;traverser!=NULL;traverser = traverser->next) {
-		if(memcmp(traverser->data,data,sizeof((int*)data))==0)
+	for(traverser = list.head;traverser!=NULL;traverser = traverser->next,count++) {
+		if(memcmp(traverser->data,data,sizeof((void*)data))==0)
 			return count;
-		count++;
 	}
 	return -1;
 }
@@ -71,11 +68,37 @@ int indexOf(LinkedList list,void* data) {
 void *deleteElementAt(LinkedList list, int index) {
 	Node* traverser;
 	int count = 0;
-	for(traverser = list.head;traverser!=NULL;traverser = traverser->next) {
+	list.count = list.count-1;
+	if(list.count<index || index<0)return NULL;
+	for(traverser = list.head;traverser!=NULL;traverser = traverser->next,count++) {
 		if(count == index-1) {
 			traverser->next = traverser->next->next;
 			return traverser->next->data;
 		}
-	count++;
 	}	
 }
+
+int asArray(LinkedList list, void** arr) {
+	Node *traverser;
+	int count = 0;
+	for(traverser = list.head;traverser!=NULL;traverser = traverser->next,count++) {
+		arr[count] = traverser->data;
+	}
+	return (!list.head) ? 0 : count;	
+}
+
+LinkedList *filter(LinkedList list, int (*f)(void *)) {
+	Node *traverser,*n1;
+	LinkedList *newList = calloc(sizeof(LinkedList),1);
+	for(traverser = list.head;traverser!=NULL;traverser = traverser->next) {
+		if(f(traverser->data)) {
+			n1 = create_node(traverser->data);
+			add_to_list(newList,n1);
+		}
+	}	
+	return newList; 
+}
+
+
+
+

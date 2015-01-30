@@ -5,14 +5,16 @@
 
 typedef Node* node_ptr;
 
-#define log(test_description) int log = printf("\t  ==>%s\n\n", test_description)
-#define string char* 
+#define log(test_description) int log = printf("**  Description->%s\n\n", test_description)
+typedef char* string;  
 void test_createList_001() {
 	log("create list creates a blank list");
 	LinkedList list = createList(),tmp = {0,0,0};
 	assertEqual(list.head,tmp.head);
 	assertEqual(list.count,tmp.count);
 	assertEqual(list.tail,tmp.tail);
+	free(list.head);
+	free(list.tail);
 }
 
 void test_create_node_001() {
@@ -137,7 +139,7 @@ void test_add_to_list_006() {
 	add_to_list(&list,node1);
 	add_to_list(&list,node2);
 	assertEqual(*(string *)(*(list.head)).data,"Prasenjit");
-	// assertEqual(*(string *)(*(list.tail)).data,"Chakraborty"); Checkpoint
+	assertEqual(*(string *)(*(list.tail)).data,"Chakraborty"); 
 }
 
 void test_add_to_list_007() {
@@ -368,6 +370,72 @@ void test_getElementAt_001() {
 	assertEqual(*((int*)getElementAt(list,1)),10);
 }
 
+void test_getElementAt_002() {
+	log("getElementAt gives the data at given position for character");
+	char c = 'A',d = 'B';
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(*((char*)getElementAt(list,0)),'A');
+	assertEqual(*((char*)getElementAt(list,1)),'B');
+}
+
+void test_getElementAt_003() {
+	log("getElementAt gives the data at given position for staring");
+	string c = "Prasenjit",d = "Chakraborty";
+	LinkedList list = createList();
+	Node *node1 = create_node(c),*node2 = create_node(d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(getElementAt(list,0),"Prasenjit");
+	assertEqual(getElementAt(list,1),"Chakraborty"); //has to be tested
+}
+
+void test_getElementAt_004() {
+	log("getElementAt gives the data at given position for float");
+	float c = 9.1,d = 10.1;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(*((float*)getElementAt(list,0)),9.1);
+	assertEqual(*((float*)getElementAt(list,1)),10.1);
+}
+
+void test_getElementAt_005() {
+	log("getElementAt gives the data at given position for double");
+	double c = 9.1,d = 10.1;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(*((double*)getElementAt(list,0)),9.1);
+	assertEqual(*((double*)getElementAt(list,1)),10.1);
+}
+
+void test_getElementAt_006() {
+	log("getElementAt gives the data at given position for longint");
+	long int c = 2147483647,d = 2147483646;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(*((long int*)getElementAt(list,0)),2147483647);
+	assertEqual(*((long int*)getElementAt(list,1)),2147483646);
+}
+
+void test_getElementAt_007() {
+	log("getElementAt gives the data at given position for signed char");
+	signed char c = -128,d = 127;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(*((signed char*)getElementAt(list,0)),-128);
+	assertEqual(*((signed char*)getElementAt(list,1)),127);
+}
+
 void test_indexOf_001() {
 	log("indexOf gives the position of the given element in an integer link list");
 	int c = 9,d = 10;
@@ -375,20 +443,251 @@ void test_indexOf_001() {
 	Node *node1 = create_node(&c),*node2 = create_node(&d);
 	add_to_list(&list,node1);
 	add_to_list(&list,node2);
-	assertEqual(((int *)indexOf(list,&c)),0);
-	assertEqual(((int *)indexOf(list,&d)),1);
+	assertEqual(indexOf(list,&c),0);
+	assertEqual(indexOf(list,&d),1);
+}
+
+void test_indexOf_002() {
+	log("indexOf gives the position of the given element in an character link list");
+	char c = 'A',d = 'B';
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(indexOf(list,&c),0);
+	assertEqual(indexOf(list,&d),1);
+}
+
+void test_indexOf_003() {
+	log("indexOf gives the position of the given element in an string link list");
+	string c = "Prasenjit",d = "Chakraborty";
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(indexOf(list,&c),0);
+	assertEqual(indexOf(list,&d),1);
+}
+
+void test_indexOf_004() {
+	log("indexOf gives the position of the given element in an float link list");
+	float c = 12.4,d = 13.6;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(indexOf(list,&c),0);
+	assertEqual(indexOf(list,&d),1);
+}
+
+void test_indexOf_005() {
+	log("indexOf gives the position of the given element in an double link list");
+	double c = 12.4,d = 13.6;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(indexOf(list,&c),0);
+	assertEqual(indexOf(list,&d),1);
+}
+
+void test_indexOf_006() {
+	log("indexOf gives the position of the given element in an long int link list");
+	long int c = 2147483647,d = 2147483643;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(indexOf(list,&c),0);
+	assertEqual(indexOf(list,&d),1);
+}
+
+void test_indexOf_007() {
+	log("indexOf gives the position of the given element in an signed char link list");
+	signed char c = -128,d = 127;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(indexOf(list,&c),0);
+	assertEqual(indexOf(list,&d),1);
+}
+
+void test_indexOf_008() {
+	log("indexOf gives the position of the given element in an unsigned char link list");
+	unsigned char c = 128,d = 255;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(indexOf(list,&c),0);
+	assertEqual(indexOf(list,&d),1);
+}
+
+void test_indexOf_009() {
+	log("indexOf gives the position of the given element in an unsigned int link list");
+	unsigned int c = 4294967295,d = 4294967292;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(indexOf(list,&c),0);
+	assertEqual(indexOf(list,&d),1);
+}
+
+void test_indexOf_010() {
+	log("indexOf gives the position of the given element in an short int link list");
+	short int c = -32768,d = 32767;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(indexOf(list,&c),0);
+	assertEqual(indexOf(list,&d),1);
+}
+
+void test_indexOf_011() {
+	log("indexOf gives the position of the given element in an unsigned short int link list");
+	unsigned short int c = 45,d = 65535;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	assertEqual(indexOf(list,&c),0);
+	assertEqual(indexOf(list,&d),1);
 }
 
 void test_deleteElementAt_001() {
-	log("deleteElementAt deletes the element at the given position");
+	log("deleteElementAt deletes the element at the given position of integer linklist");
 	int c = 9,d = 10,e = 11;
 	LinkedList list = createList();
 	Node *node1 = create_node(&c),*node2 = create_node(&d),*node3 = create_node(&e);
 	add_to_list(&list,node1);
 	add_to_list(&list,node2);
 	add_to_list(&list,node3);
-	assertEqual(((int *)indexOf(list,&e)),2);
+	assertEqual(indexOf(list,&e),2);
 	deleteElementAt(list,1);
-	assertEqual(((int *)indexOf(list,&e)),1);
+	assertEqual(indexOf(list,&e),1);
+	assertEqual(indexOf(list,&d),-1);
 }
+
+void test_deleteElementAt_002() {
+	log("deleteElementAt deletes the element at the given position of character linklist");
+	char c = 'A',d = 'B',e = 'C';
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d),*node3 = create_node(&e);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	add_to_list(&list,node3);
+	assertEqual(indexOf(list,&e),2);
+	deleteElementAt(list,1);
+	assertEqual(indexOf(list,&e),1);
+	assertEqual(indexOf(list,&d),-1);
+}
+
+void test_deleteElementAt_003() {
+	log("deleteElementAt deletes the element at the given position of string linklist");
+	string c = "Prasenjit",d = "enemy",e = "Chakraborty";
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d),*node3 = create_node(&e);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	add_to_list(&list,node3);
+	assertEqual(indexOf(list,&e),2);
+	deleteElementAt(list,1);
+	assertEqual(indexOf(list,&e),1);
+	assertEqual(indexOf(list,&d),-1);
+}
+
+void test_deleteElementAt_004() {
+	log("deleteElementAt deletes the element at the given position of float linklist");
+	float c = 19.2,d = 20.2,e = 21.2;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d),*node3 = create_node(&e);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	add_to_list(&list,node3);
+	assertEqual(indexOf(list,&e),2);
+	deleteElementAt(list,1);
+	assertEqual(indexOf(list,&e),1);
+	assertEqual(indexOf(list,&d),-1);
+}
+
+void test_deleteElementAt_005() {
+	log("deleteElementAt deletes the element at the given position of signed char linklist");
+	signed char c = -128,d = 127,e = 126;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d),*node3 = create_node(&e);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	add_to_list(&list,node3);
+	assertEqual(indexOf(list,&e),2);
+	deleteElementAt(list,1);
+	assertEqual(indexOf(list,&e),1);
+	assertEqual(indexOf(list,&d),-1);
+}
+
+void test_deleteElementAt_006() {
+	log("deleteElementAt deletes the element at the given position of long int linklist");
+	long int c = 2147483645,d = 2147483646,e = 2147483647;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d),*node3 = create_node(&e);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	add_to_list(&list,node3);
+	assertEqual(indexOf(list,&e),2);
+	deleteElementAt(list,1);
+	assertEqual(indexOf(list,&e),1);
+	assertEqual(indexOf(list,&d),-1);
+}
+
+void test_asArray_001() {
+	log("creates an array with a integer linklist");
+	int c = 9,d = 10,e = 11,count;
+	int** arr;
+	Node *node1 = create_node(&c),*node2 = create_node(&d),*node3 = create_node(&e);
+	LinkedList list = createList();
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	add_to_list(&list,node3);
+	arr = malloc(3*sizeof(int *));
+	count = asArray(list,arr);
+	assertEqual(count,3);
+	assertEqual(*arr[0],9);
+	assertEqual(*arr[1],10);
+	assertEqual(*arr[2],11);
+	free(arr);
+}
+	
+int isEven(void* data) {
+	return (*(int*)data%2==0) ? 1 : 0;
+}
+
+void test_filter_001() {
+	log("filters all the evev numbers in a given integer linklist");
+	int c = 9,d = 10,e = 11,count;
+	void** arr;
+	Node *node1 = create_node(&c),*node2 = create_node(&d),*node3 = create_node(&e);
+	LinkedList list = createList(),*newlist;
+	arr = malloc(1*sizeof(int));
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	add_to_list(&list,node3);
+	newlist = filter(list,isEven);
+	assertEqual(*((int *)getElementAt(*newlist,0)),10);
+	assertEqual((*newlist).count,1);
+	free(arr);
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
