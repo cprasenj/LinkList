@@ -7,6 +7,7 @@ typedef Node* node_ptr;
 
 #define log(test_description) int log = printf("**  Description->%s\n\n", test_description)
 typedef char* string;  
+
 void test_createList_001() {
 	log("create list creates a blank list");
 	LinkedList list = createList(),tmp = {0,0,0};
@@ -200,7 +201,9 @@ void test_add_to_list_012() {
 	LinkedList list = createList();
 	Node *node1 = create_node(&c),*node2 = create_node(&d);
 	add_to_list(&list,node1);
+	assert(list.count==1);
 	add_to_list(&list,node2);
+	assert(list.count==2);
 	assertEqual(*(double *)(*(list.head)).data,21.1);
 	assertEqual(*(double *)(*(list.tail)).data,21.2);
 }
@@ -343,6 +346,28 @@ void test_get_last_element_004() {
 	add_to_list(&list,intNode);
 	res = get_last_element(list);
 	assertEqual(res, "Prasenjit");
+}
+
+void test_get_last_element_005() {
+	log("get last element gets the last element of string link list more than size one");
+	string c = "Prasenjit",d = "Chakraborty",*res;
+	LinkedList list = createList();
+	Node *node1 = create_node(c),*node2 = create_node(d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	res = get_last_element(list);
+	assertEqual(res, "Chakraborty");	
+}
+
+void test_get_last_element_006() {
+	log("get last element gets the last element of string link list more than size one");
+	char c = 'A',d = 'D',*res;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	res = get_last_element(list);
+	assertEqual(*res, 'D');
 }
 
 void add(void* data) {
