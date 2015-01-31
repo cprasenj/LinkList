@@ -10,13 +10,12 @@ LinkedList createList() {
 	list->tail = NULL;
 	return *list;
 }
-
 Node* create_node(void* data){
 	Node *n; 
 	n = malloc(sizeof(Node));
 	n->data = data;
 	n->next = NULL;
-	return n;
+	return *(int *)data ? n : 0;
 }
 
 int add_to_list(LinkedList* list,Node* s) {
