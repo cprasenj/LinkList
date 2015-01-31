@@ -21,13 +21,10 @@ Node* create_node(void* data){
 
 int add_to_list(LinkedList* list,Node* s) {
 	if(!s)return 0;
-	if(list->head==NULL){
-		list->head = s;
-	}
-	else
-		list->tail->next = s;
+	!list->head ? (list->head = s) : (list->tail->next = s);
 	list->tail = s;
 	list->count++;
+	return 1;
 }
 
 void *get_first_element(LinkedList list) {
@@ -40,19 +37,17 @@ void *get_last_element(LinkedList list) {
 
 void traverse(LinkedList list, void (*f)(void* data)) {
 	Node* traverser;
-	for(traverser = list.head;traverser!=NULL;traverser = traverser->next) {
+	for(traverser = list.head;traverser;traverser = traverser->next) 
 		f(traverser->data);
-	}
 }
 
 Node *getNodeAt(LinkedList list, int index) {
 	Node* traverser;
 	int count = 0;
 	if(index > list.count || index<0) return NULL;
-	for(traverser = list.head;traverser!=NULL;traverser = traverser->next,count++) {
+	for(traverser = list.head;traverser;traverser = traverser->next,count++) 
 		if(count == index)
 			return traverser;
-	}	
 }
 
 void *getElementAt(LinkedList list, int index) {
@@ -62,10 +57,9 @@ void *getElementAt(LinkedList list, int index) {
 int indexOf(LinkedList list,void* data) {
 	Node* traverser;
 	int count = 0;
-	for(traverser = list.head;traverser!=NULL;traverser = traverser->next,count++) {
-		if(memcmp(traverser->data,data,sizeof((void*)data))==0)
+	for(traverser = list.head;traverser;traverser = traverser->next,count++) 
+		if(!memcmp(traverser->data,data,sizeof((void*)data)))
 			return count;
-	}
 	return -1;
 }
 
@@ -83,24 +77,18 @@ void *deleteElementAt(LinkedList* list, int index) {
 int asArray(LinkedList list, void** arr) {
 	Node *traverser;
 	int count = 0;
-	for(traverser = list.head;traverser!=NULL;traverser = traverser->next,count++) {
+	for(traverser = list.head;traverser;traverser = traverser->next,count++) 
 		arr[count] = traverser->data;
-	}
-	return (!list.head) ? 0 : count;	
+	return !list.head ? 0 : count;	
 }
 
 LinkedList *filter(LinkedList list, int (*f)(void *)) {
 	Node *traverser,*n1;
 	LinkedList *newList = calloc(sizeof(LinkedList),1);
-	for(traverser = list.head;traverser!=NULL;traverser = traverser->next) {
-		if(f(traverser->data)) {
-			n1 = create_node(traverser->data);
-			add_to_list(newList,n1);
-		}
-	}	
+	for(traverser = list.head;traverser;traverser = traverser->next) 
+		(f(traverser->data)) && (n1 = create_node(traverser->data)) && add_to_list(newList,n1);
 	return newList; 
 }
-
 
 
 
