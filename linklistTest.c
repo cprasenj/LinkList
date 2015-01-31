@@ -384,6 +384,22 @@ void test_traverse_001() {
 	assertEqual(*(int*)(*(Node*)(list.head)).data, 10);
 }
 
+void toUpperCase(void* data) {
+	*(char*)data-=32;
+}
+
+void test_traverse_002() {
+	log("traverse through a char node and convert each element to upperCase");
+	char c = 'a',d = 'b';
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	traverse(list,toUpperCase);
+	assertEqual(*(char*)(*(Node*)(list.head)).data,'A');
+	assertEqual(*(char*)(*(Node*)(list.tail)).data,'B');	
+}
+
 void test_getElementAt_001() {
 	log("getElementAt gives the data at given position for integer");
 	int c = 9,d = 10;
@@ -591,7 +607,7 @@ void test_deleteElementAt_001() {
 	add_to_list(&list,node2);
 	add_to_list(&list,node3);
 	assertEqual(indexOf(list,&e),2);
-	deleteElementAt(list,1);
+	deleteElementAt(&list,1);
 	assertEqual(indexOf(list,&e),1);
 	assertEqual(indexOf(list,&d),-1);
 }
@@ -605,7 +621,7 @@ void test_deleteElementAt_002() {
 	add_to_list(&list,node2);
 	add_to_list(&list,node3);
 	assertEqual(indexOf(list,&e),2);
-	deleteElementAt(list,1);
+	deleteElementAt(&list,1);
 	assertEqual(indexOf(list,&e),1);
 	assertEqual(indexOf(list,&d),-1);
 }
@@ -619,7 +635,7 @@ void test_deleteElementAt_003() {
 	add_to_list(&list,node2);
 	add_to_list(&list,node3);
 	assertEqual(indexOf(list,&e),2);
-	deleteElementAt(list,1);
+	deleteElementAt(&list,1);
 	assertEqual(indexOf(list,&e),1);
 	assertEqual(indexOf(list,&d),-1);
 }
@@ -633,7 +649,7 @@ void test_deleteElementAt_004() {
 	add_to_list(&list,node2);
 	add_to_list(&list,node3);
 	assertEqual(indexOf(list,&e),2);
-	deleteElementAt(list,1);
+	deleteElementAt(&list,1);
 	assertEqual(indexOf(list,&e),1);
 	assertEqual(indexOf(list,&d),-1);
 }
@@ -647,7 +663,7 @@ void test_deleteElementAt_005() {
 	add_to_list(&list,node2);
 	add_to_list(&list,node3);
 	assertEqual(indexOf(list,&e),2);
-	deleteElementAt(list,1);
+	deleteElementAt(&list,1);
 	assertEqual(indexOf(list,&e),1);
 	assertEqual(indexOf(list,&d),-1);
 }
@@ -661,10 +677,46 @@ void test_deleteElementAt_006() {
 	add_to_list(&list,node2);
 	add_to_list(&list,node3);
 	assertEqual(indexOf(list,&e),2);
-	deleteElementAt(list,1);
+	deleteElementAt(&list,1);
 	assertEqual(indexOf(list,&e),1);
 	assertEqual(indexOf(list,&d),-1);
 }
+
+void test_deleteElementAt_007() {
+	log("deleteElementAt deletes the first element of the link list");
+	int c = 9,d = 10,e = 11;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d),*node3 = create_node(&e);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	add_to_list(&list,node3);
+	assertEqual(indexOf(list,&c),0);
+	deleteElementAt(&list,0);
+	assertEqual(list.count,2);
+	assertEqual(indexOf(list,&c),-1);
+}
+
+void test_deleteElementAt_008() {
+	log("deleteElementAt deletes the last element of the link list");
+	int c = 9,d = 10,e = 11;
+	LinkedList list = createList();
+	Node *node1 = create_node(&c),*node2 = create_node(&d),*node3 = create_node(&e);
+	add_to_list(&list,node1);
+	add_to_list(&list,node2);
+	add_to_list(&list,node3);
+	assertEqual(indexOf(list,&e),2);
+	deleteElementAt(&list,2);
+	assertEqual(indexOf(list,&e),-1);
+}
+
+void test_get_last_element_and_get_frist_element() {
+	log("get_first_element and get_last_element gives same result if there is only one element ");
+	int a = 41;
+	LinkedList list = createList();
+	Node *node1 = create_node(&a);
+	add_to_list(&list,node1);
+	assertEqual(*(int *)get_last_element(list),*(int *)get_first_element(list));
+} 
 
 void test_asArray_001() {
 	log("creates an array with a integer linklist");

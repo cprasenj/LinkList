@@ -65,15 +65,29 @@ int indexOf(LinkedList list,void* data) {
 	return -1;
 }
 
-void *deleteElementAt(LinkedList list, int index) {
-	Node* traverser;
+void *deleteElementAt(LinkedList* list, int index) {
+	Node *traverser;
+	void *tmp;
 	int count = 0;
-	list.count = list.count-1;
-	if(list.count<index || index<0)return NULL;
-	for(traverser = list.head;traverser!=NULL;traverser = traverser->next,count++) {
+	list->count-=1;
+	if(list->count < index || index < 0)return NULL;
+	for(traverser = list->head;traverser!=NULL;traverser = traverser->next,count++) {
+		if(index == 0){
+			tmp = list->head->data;
+			list->head = list->head->next;
+			traverser->next = NULL;
+			return tmp;
+		}
+		if(count == list->count-1){
+			tmp = traverser->next->data;
+			traverser->next = NULL;
+			list->tail = traverser;
+			return tmp;
+		}
 		if(count == index-1) {
+			tmp = traverser->next->data;
 			traverser->next = traverser->next->next;
-			return traverser->next->data;
+			return tmp;
 		}
 	}	
 }
